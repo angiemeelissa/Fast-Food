@@ -1,31 +1,48 @@
 #LIBRERIAS
-import getpass
+import time
 
 #DICCIONARIOS
 users_clients = {}
 
+#LLAMAR CLASES
+
 #CLASES
 class Inventory:
     def __init__(self):
-        self.inventario = []
+        self.principal = []
+        nmer.append(self.principal)
 
     def ingreso_de_datos(self):
         print("-" * 50)
-        amount = int(input("¿Cuantos Productos Ingresara?: "))
+        account = int(input("¿Cuantos Productos Ingresara?: "))
         print("-" * 50)
 
-        for i in range(amount):
-            product = {}
+        for i in range(account):
+            products = []
             print("Producto No.", i + 1)
-            product["name"] = input("Ingrese el Nombre del Producto: ")
-            product["id"] = i + 1
-            product["stock"] = input("Ingrese el Stok del Producto: ")
-            product["price"] = int(input("Ingrese el Precio del Producto: "))
-            product["description"] = input("Ingrese la Descripción del Producto: ")
+            name_product = input("Ingrese el Nombre del Producto: ")
+            idProduct = i + 1
+            stock = input("Ingrese la cantidad exacta que tiene del producto: ")
+            price = int(input("Ingrese el precio del producto: "))
+            description = input("Ingrese la descripción del producto: ")
             print("-" * 50)
-            self.inventario.append(product)
+            products.append(idProduct)
+            products.append(name_product)
+            products.append(stock)
+            products.append(price)
+            products.append(description)
+            self.principal.append(products)
             print("Información del producto No.", i + 1, "guardada correctamente")
             print("-" * 50)
+
+    def ver_datos(self):
+        print("-" * 100)
+        titles = ["No.", "Nombre del Producto", "Cantidad", "Precio Q.", "Descripción"]
+        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+        print("-" * 100)
+        for product in self.principal:
+            print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*product))
+            print("-" * 100)
 
 #FUNCIONES
 
@@ -47,7 +64,7 @@ def Registro_Clientes():
         confirmation = input("Confirma tu Contraseña: ")
 
         if password != confirmation:
-            print("\nERROR!\nLas contraseñas no coinciden. Intente nuevamente.")
+            print("\nERROR!\nLas Contraseñas no Coinciden. Intente de Nuevo")
             continue
 
         users_clients[username] = {
@@ -64,7 +81,7 @@ def Registro_Clientes():
 #Funcion Para el Inicio de Sesion de Clientes
 def Iniciar_Sesion_Cliente():
     username = input("Ingrese su Nombre de Usuario: ")
-    password = getpass.getpass("Ingrese su Contraseña: ")
+    password = input("Ingrese su Contraseña: ")
 
     if username in users_clients:
         usuario = users_clients[username]
@@ -77,8 +94,9 @@ def Iniciar_Sesion_Cliente():
 
 #Funcion para Mostrar la Informacion de los Clientes
 def Administracion_Clientes():
+    print("Datos Completos de Clientes Registrado")
     if not users_clients:
-        print("No hay clientes registrados.")
+        print("No hay clientes Registrados")
     else:
         for username, info in users_clients.items():
             print("\nNombre de Usuario:", username)
@@ -88,6 +106,78 @@ def Administracion_Clientes():
             print("Correo Electrónico:", info["email"])
             print("Número Telefónico:", info["no_telefonico"])
             print("Contraseña:", info["contraseña"])
+
+    while True:
+        print("Oprime 0 para Regresar al Menú Princiapal")
+        option = input("\nDesea Enviar Nuevas Promociones a los Clientes (S/N): ")
+
+        if option.lower() == "s" or option.upper() == "S" or option.lower() == "si" or option.upper() == "SI":
+            print("\nOPCIONES")
+            print("1-. Por Medio de Número Telefonico")
+            print("2-. Por Medio de Correo Electronico")
+            print("3-. Regresar al Menú Principal")
+
+            option = int(input("Ingrese el Número de la Opción que Desea: "))
+
+            if option == 1:
+                while True:
+                    print("\nPor Medio de Número Telefonico")
+                    header = input("Ingrese el Encabezado del Mensaje: ")
+                    description = input("Ingrese la Descripcion de la Promocion: ")
+
+                    print("\nEl Mensaje se vera Asi: ")
+                    print(header)
+                    print(description)
+
+                    option2 = input("Confirmar Mensaje (S/N): ")
+
+                    if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
+                        tiempo_espera = 5
+                        for tiempo_restante in range(tiempo_espera, -1, -1):
+                            print("\rLos Mensajes Seran Enviados en {} segundos".format(tiempo_restante), end='')
+                            time.sleep(1)
+
+                        print("\nTodos Los Mensajes han Sido Enviados con Exito")
+
+                    elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
+                        print("Ingrese Nuevamente el Mensaje\n")
+                        break
+
+                    else:
+                        print("Opcion Invalida")
+                        print("Intente de Nuevo")
+
+            elif option == 2:
+                while True:
+                    print("\nPor Medio de Correo Electronico")
+                    header = input("Ingrese el Encabezado del Correo: ")
+                    description = input("Ingrese la Descripcion de la Promocion: ")
+
+                    print("\nEl Correo Electronico se vera Asi: ")
+                    print(header)
+                    print(description)
+
+                    option2 = input("Confirmar Correo Electronico (S/N): ")
+
+                    if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
+                        tiempo_espera = 5
+                        for tiempo_restante in range(tiempo_espera, -1, -1):
+                            print("\rLos Correos Electronicos Seran Enviados en {} segundos".format(tiempo_restante), end='')
+                            time.sleep(1)
+
+                        print("\nTodos Los Mensajes han Sido Enviados con Exito")
+
+                    elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
+                        print("Ingrese Nuevamente el Mensaje\n")
+                        break
+
+                    else:
+                        print("Opcion Invalida")
+                        print("Intente de Nuevo")
+
+        elif option == 3:
+            break
+
 
 predetermined = "FASTFOOD023"
 
