@@ -1,18 +1,16 @@
 #LIBRERIAS
-import time
+#import time
 
 #DICCIONARIOS
 users_clients = {}
 
-#LLAMAR CLASES
-
 #CLASES
+#Clase para la administracion e inventario
 class Inventory:
     def __init__(self):
         self.principal = []
-        nmer.append(self.principal)
 
-    def ingreso_de_datos(self):
+    def Ingreso_Producto_Inventario(self):
         print("-" * 50)
         account = int(input("¿Cuantos Productos Ingresara?: "))
         print("-" * 50)
@@ -22,9 +20,9 @@ class Inventory:
             print("Producto No.", i + 1)
             name_product = input("Ingrese el Nombre del Producto: ")
             idProduct = i + 1
-            stock = input("Ingrese la cantidad exacta que tiene del producto: ")
-            price = int(input("Ingrese el precio del producto: "))
-            description = input("Ingrese la descripción del producto: ")
+            stock = input("Ingrese la Cantidad Exacta que Tiene del Producto: ")
+            price = int(input("Ingrese el Precio del Producto: "))
+            description = input("Ingrese la Descripción del Producto: ")
             print("-" * 50)
             products.append(idProduct)
             products.append(name_product)
@@ -32,10 +30,10 @@ class Inventory:
             products.append(price)
             products.append(description)
             self.principal.append(products)
-            print("Información del producto No.", i + 1, "guardada correctamente")
+            print("Información del Producto No.", i + 1, "Guardada Correctamente")
             print("-" * 50)
 
-    def ver_datos(self):
+    def Ver_Inventario(self):
         print("-" * 100)
         titles = ["No.", "Nombre del Producto", "Cantidad", "Precio Q.", "Descripción"]
         print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
@@ -44,8 +42,185 @@ class Inventory:
             print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*product))
             print("-" * 100)
 
-#FUNCIONES
+    def Cambio_de_Datos(self):
+        while True:
+            print("-" * 50)
+            print("¿Que Dato Desea Cambiar?")
+            print("1-. Nombre")
+            print("2-. Cantidad del Producto")
+            print("3-. Precio")
+            print("4-. Descripción")
+            print("5-. Ver Actualizaciones")
+            print("6-. Regresar al Menú Anterior")
+            print("7-. Salir del Programa")
 
+            print("-" * 50)
+            challenge = int(input("Ingrese el Número de la Opcion que Desea Actualizar: "))
+
+
+            if challenge == 1:
+                print("-" * 50)
+                id = int(input("Ingrese Número del Producto que Desea Actualizar: "))
+                print("-" * 50)
+                for x in self.principal:
+                    if x[0] == id:
+                        position = self.principal.index(x)
+                        print("Los Datos del Producto son los Siguientes:")
+                        print("-" * 100)
+                        titles = ["No.", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                        print("-" * 100)
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                        print("-" * 100)
+
+                        confirm = int(input("¿Desea Cambiar Nombre del Producto?\n 1. Si\n 2. No\n"))
+                        print("-" * 50)
+
+                        if confirm == 1:
+                            new = input("Ingrese el Nuevo Nombre del Producto: ")
+                            print("-" * 50)
+
+                            self.principal[position][1] = new
+                            print("Datos Actualizados Correctamente")
+                            break
+                        else:
+                            print("El Dato no Fue Cambiado")
+                            print("-" * 50)
+
+                    else:
+                        print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                        print("-" * 50)
+
+            if challenge == 2:
+                print("-" * 50)
+                id = int(input("Ingrese Número del Producto que Desea Actualizar: "))
+                print("-" * 50)
+                for x in self.principal:
+                    if x[0] == id:
+                        position = self.principal.index(x)
+                        print("Los Datos del Producto son los Siguientes:")
+                        print("-" * 100)
+                        titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                        print("-" * 100)
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                        print("-" * 100)
+
+                        confirm = int(input("¿Desea Cambiar la Cantidad que Tiene del Producto?\n 1. Si\n 2. No\n"))
+                        print("-" * 50)
+
+                        if confirm == 1:
+                            new = input("Ingrese la Nueva Cantidad que Tiene del Producto: ")
+                            print("-" * 50)
+
+                            self.principal[position][2] = new
+                            print("Datos Actualizados Correctamente")
+                            break
+                        else:
+                            print("El Dato no Fue Cambiado")
+                            print("-" * 50)
+                    else:
+                        print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                        print("-" * 50)
+
+            if challenge == 3:
+                print("-" * 50)
+                id = int(input("Ingrese Número del Producto que Desea Actualizar: "))
+                print("-" * 50)
+                for x in self.principal:
+                    if x[0] == id:
+                        position = self.principal.index(x)
+                        print("Los Datos del Producto son los Siguientes:")
+                        print("-" * 100)
+                        titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                        print("-" * 100)
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                        print("-" * 100)
+
+                        confirm = int(input("¿Desea Cambiar el Precio del Producto?\n 1. Si\n 2. No\n"))
+                        print("-" * 50)
+
+                        if confirm == 1:
+                            new = input("Ingrese el Nuevo Precio del Producto: ")
+                            print("-" * 50)
+
+                            self.principal[position][3] = new
+                            print("Datos Actualizados Correctamente")
+                            break
+                        else:
+                            print("El Dato no Fue Cambiado")
+                            print("-" * 50)
+
+                    else:
+                        print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                        print("-" * 50)
+
+            if challenge == 4:
+                print("-" * 50)
+                id = int(input("Ingrese Número del Producto que Desea Actualizar: "))
+                print("-" * 50)
+                for x in self.principal:
+                    if x[0] == id:
+                        position = self.principal.index(x)
+                        print("Los Datos del Producto son los Siguientes:")
+                        print("-" * 100)
+                        titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                        print("-" * 100)
+                        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                        print("-" * 100)
+
+                        confirm = int(input("¿Desea Cambiar la Descripción del Producto?\n 1. Si\n 2. No\n"))
+                        print("-" * 50)
+
+                        if confirm == 1:
+                            new = input("Ingrese la Nueva Descripción del Producto: ")
+                            print("-" * 50)
+
+                            self.principal[position][4] = new
+                            print("Datos Actualizados Correctamente")
+                            break
+                        else:
+                            print("El Dato no Fue Cambiado")
+                            print("-" * 50)
+
+                    else:
+                        print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                        print("-" * 50)
+
+            elif challenge == 5:
+                print("Sus actualizaciones quedaron de la siguiente manera: ")
+                self.Ver_Inventario()
+
+            elif challenge == 6:
+                print("Datos Cambiados Correctamente")
+                break
+
+            else:
+                print("Gracias Por Utilizar Nuestro Programa")
+                exit()
+
+    def Eliminar_Producto(self):
+        print("-" * 50)
+        id = int(input("Ingrese Número del Producto que Desea Eliminar: "))
+        print("-" * 50)
+        for x in self.principal:
+            if x[0] == id:
+                self.principal.remove(x)
+                print("El Producto se Elimino del Inventario con los  Siguientes Datos:")
+                print("-" * 100)
+                titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                print("-" * 100)
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                print("-" * 100)
+                return
+            else:
+                print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                print("-" * 50)
+
+#FUNCIONES
 #Funion Para el Registro de Clientes
 def Registro_Clientes():
     while True:
@@ -94,37 +269,36 @@ def Iniciar_Sesion_Cliente():
 
 #Funcion para Mostrar la Informacion de los Clientes
 def Administracion_Clientes():
-    print("Datos Completos de Clientes Registrado")
-    if not users_clients:
-        print("No hay clientes Registrados")
-    else:
-        for username, info in users_clients.items():
-            print("\nNombre de Usuario:", username)
-            print("Nombres:", info["nombres"])
-            print("Apellidos:", info["apellidos"])
-            print("Fecha de Nacimiento:", info["fecha_nacimiento"])
-            print("Correo Electrónico:", info["email"])
-            print("Número Telefónico:", info["no_telefonico"])
-            print("Contraseña:", info["contraseña"])
-
     while True:
-        print("Oprime 0 para Regresar al Menú Princiapal")
+        print("Datos Completos de Clientes Registrado")
+        if not users_clients:
+            print("No hay clientes Registrados")
+        else:
+            for username, info in users_clients.items():
+                print("\nNombre de Usuario:", username)
+                print("Nombres:", info["nombres"])
+                print("Apellidos:", info["apellidos"])
+                print("Fecha de Nacimiento:", info["fecha_nacimiento"])
+                print("Correo Electrónico:", info["email"])
+                print("Número Telefónico:", info["no_telefonico"])
+                print("Contraseña:", info["contraseña"])
+
         option = input("\nDesea Enviar Nuevas Promociones a los Clientes (S/N): ")
 
+
         if option.lower() == "s" or option.upper() == "S" or option.lower() == "si" or option.upper() == "SI":
-            print("\nOPCIONES")
-            print("1-. Por Medio de Número Telefonico")
-            print("2-. Por Medio de Correo Electronico")
-            print("3-. Regresar al Menú Principal")
+            while True:
+                print("\nOPCIONES")
+                print("1-. Por Medio de Número Telefonico")
+                print("2-. Por Medio de Correo Electronico")
+                print("3-. Regresar al Menú Principal")
 
-            option = int(input("Ingrese el Número de la Opción que Desea: "))
+                option = int(input("Ingrese el Número de la Opción que Desea: "))
 
-            if option == 1:
-                while True:
+                if option == 1:
                     print("\nPor Medio de Número Telefonico")
                     header = input("Ingrese el Encabezado del Mensaje: ")
                     description = input("Ingrese la Descripcion de la Promocion: ")
-
                     print("\nEl Mensaje se vera Asi: ")
                     print(header)
                     print(description)
@@ -132,52 +306,24 @@ def Administracion_Clientes():
                     option2 = input("Confirmar Mensaje (S/N): ")
 
                     if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
-                        tiempo_espera = 5
-                        for tiempo_restante in range(tiempo_espera, -1, -1):
-                            print("\rLos Mensajes Seran Enviados en {} segundos".format(tiempo_restante), end='')
-                            time.sleep(1)
-
                         print("\nTodos Los Mensajes han Sido Enviados con Exito")
 
                     elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
                         print("Ingrese Nuevamente el Mensaje\n")
-                        break
 
                     else:
                         print("Opcion Invalida")
                         print("Intente de Nuevo")
 
-            elif option == 2:
-                while True:
-                    print("\nPor Medio de Correo Electronico")
-                    header = input("Ingrese el Encabezado del Correo: ")
-                    description = input("Ingrese la Descripcion de la Promocion: ")
+                elif option == 3:
+                    return
 
-                    print("\nEl Correo Electronico se vera Asi: ")
-                    print(header)
-                    print(description)
+                else:
+                    print("Opcion Invalida")
+                    print("Intente de Nuevo")
 
-                    option2 = input("Confirmar Correo Electronico (S/N): ")
-
-                    if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
-                        tiempo_espera = 5
-                        for tiempo_restante in range(tiempo_espera, -1, -1):
-                            print("\rLos Correos Electronicos Seran Enviados en {} segundos".format(tiempo_restante), end='')
-                            time.sleep(1)
-
-                        print("\nTodos Los Mensajes han Sido Enviados con Exito")
-
-                    elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
-                        print("Ingrese Nuevamente el Mensaje\n")
-                        break
-
-                    else:
-                        print("Opcion Invalida")
-                        print("Intente de Nuevo")
-
-        elif option == 3:
-            break
-
+#Llamar a las clases
+Administration = Inventory()
 
 predetermined = "FASTFOOD023"
 
@@ -197,45 +343,46 @@ while True:
 
         if password == predetermined:
             full_name = input("Ingrese su Nombre Completo: ")
-            print("-" * 50)
-            print("-----------BIENVENID@", full_name, "-----------")
-            print("----------------¿Que desea hacer?-----------------")
-            print("-" * 50)
-            print("1-. Ingresar Producto al Inventario")
-            print("2-. Visualizar el Inventario")
-            print("3-. Cambiar algún Dato de un Producto")
-            print("4-. Agregar Productos al Inventario")
-            print("5-. Eliminar Producto del Inventario")
-            print("6-. Administracion de Clientes")
-            print("0-. Regresar al Menú Principa")
-            print("-" * 50)
-            option = int(input("Ingrese el Número de la Opción que Desee: "))
-
             while True:
+                print("-" * 50)
+                print("----------------BIENVENID@", full_name, "-----------------")
+                print("----------------¿Que desea hacer?-----------------")
+                print("-" * 50)
+                print("1-. Ingresar Producto al Inventario")
+                print("2-. Ver el Inventario")
+                print("3-. Cambiar algún Dato de un Producto")
+                print("4-. Eliminar Producto del Inventario")
+                print("5-. Administracion de Clientes")
+                print("6-. Regresar al Menú Principal")
+                print("7-. Salir del Programa")
+                print("-" * 50)
+                option = int(input("Ingrese el Número de la Opción que Desee: "))
                 if option == 1:
-                    print("Ingresar Producto al Inventario")
+                    Administration.Ingreso_Producto_Inventario()
 
                 elif option == 2:
-                    print("Visualizar el Inventario")
+                    Administration.Ver_Inventario()
 
                 elif option == 3:
-                    print("Cambiar algún Dato de un Producto")
+                    Administration.Cambio_de_Datos()
 
                 elif option == 4:
-                    print("Agregar Productos al Inventario")
+                    Administration.Eliminar_Producto()
 
                 elif option == 5:
-                    print("Eliminar Producto del Inventario")
-
-                elif option == 6:
                     Administracion_Clientes()
 
-                elif option == 0:
+                elif option == 6:
+                    print("Inventario Registrado Crorrectamente")
                     break
+
+                elif option == 7:
+                    print("Gracias Por Utilizar Nuestro Programa")
+                    exit()
 
                 else:
                     print("Opcion Invalida")
-                    print("Intente de Nuevo")
+                    print("Intente nuevamente")
 
     if position == 1:
         while True:
@@ -257,6 +404,7 @@ while True:
                 print("MODO INVITADO")
 
             elif option == 4:
+                print("Gracias por su Compra")
                 break
 
             elif option == 5:
@@ -267,7 +415,7 @@ while True:
                 print("Opcion Invalida")
                 print("Intente de Nuevo")
 
-    elif option == 2:
+    elif position == 2:
         print("Gracias por Utilizar Nuestro Programa")
         exit()
 
