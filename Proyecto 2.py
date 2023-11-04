@@ -2,24 +2,32 @@
 users_clients = {}
 
 #CLASES
-#Clase para la administracion e inventario
-class Inventory:
-    def __init__(self):
-        self.principal = []
+#Clase para la Administracion del Inventario
+class Inventory_and_Orders:
 
-        predefined_data = [
-            [1, "Hamburguesa Volcanica", 25, 40, "X"],
-            [2, "Hamburguesa Tejana", 25, 40, "X"],
-            [3, "Hamburguesa Bomba de Queso", 25, 40, "X"],
-            [4, "Pizza de Jamon", 15, 35, "X"],
-            [5, "Pizza de Pepperoni", 15, 35, "X"],
-            [6, "Pizza Hawaina", 15, 35, "X"],
-            [7, "Tacos al Pastor", 30, 21, "3 x 21"],
-            [8, "Tacos de Cochito Horneado", 30, 21, "3 x 21"],
-            [9, "Tacos de Pollo", 30, 21, "3 x 21"],
-            [10, "Hamburguesa Volcanica", 25, 40, "X"]
+    def __init__(self):
+        self.principal = [
+            [1, "Hamburguesa Volcanica", 40, "Tocino y Queso", 25, "Hamburguesas"],
+            [2, "Hamburguesa Tejana", 40, "BBQ", 25, "Hamburguesas"],
+            [3, "Hamburguesa Bomba de Queso", 40, "3 Quesos Fundidos", 25, "Hamburguesas"],
+            [4, "Pizza de Jamon", 35, "Jamon y Queso",25, "Pizzas"],
+            [5, "Pizza de Pepperoni", 35 , "Pepperoni y Queso", 25, "Pizzas"],
+            [6, "Pizza Hawaina", 35 , "Jamon, Queso y Piña", 25, "Pizzas"],
+            [7, "Tacos al Pastor", 21, "3 x 21", 30, "Tacos"],
+            [8, "Tacos de Cochito Horneado", 21, "3 x 21", 30, "Tacos"],
+            [9, "Tacos de Pollo", 21, "3 x 21", 30, "Tacos"],
+            [10, "Pie de Queso", 25, "Torta de Queso",15, "Postres"],
+            [11, "Pie de Calabaza", 25, "Pastel de Temporada",10, "Postres"],
+            [12, "Pie de Manzana", 25, "Torta de Manzana",15, "Postres"],
+            [13, "Gaseosas", 10, "Todos los Sabores", 45, "Bebidas"],
+            [14, "Jugo Natural", 15, "Limonada y Naranjada", 30, "Bebidas"],
+            [15, "Agua Pura", 5, "Agua Pura", 15, "Bebidas"],
+
         ]
-        self.principal.extend(predefined_data)
+        self.car = []
+        self.subtotal = 0.0
+        self.taxes = 0.0
+        self.total = 0.0
 
     def Ingreso_Producto_Inventario(self):
         print("-" * 50)
@@ -28,29 +36,42 @@ class Inventory:
 
         for i in range(account):
             products = []
-            print("Producto No.", i + 1)
+            print("Producto No.", len(self.principal) + 1)
             name_product = input("Ingrese el Nombre del Producto: ")
-            idProduct = i + 1
-            stock = input("Ingrese la Cantidad Exacta que Tiene del Producto: ")
+            idProduct = len(self.principal) + 1
             price = int(input("Ingrese el Precio del Producto: "))
             description = input("Ingrese la Descripción del Producto: ")
+            stock = input("Ingrese la Cantidad Exacta que Tiene del Producto: ")
+            categoria = input("Ingrese la categoria del producto: ")
+
             print("-" * 50)
             products.append(idProduct)
             products.append(name_product)
-            products.append(stock)
             products.append(price)
             products.append(description)
+            products.append(stock)
+            products.append(categoria)
             self.principal.append(products)
-            print("Información del Producto No.", i + 1, "Guardada Correctamente")
+            print("Información del Producto No.", len(self.principal), "Guardada Correctamente")
             print("-" * 50)
+
+    def Ver_Inventario_Clientes(self, category=None):
+        print("-" * 80)
+        titles = ["No.", "Nombre del Producto", "Precio Q.", "Descripción"]
+        print("{:<15} {:<30} {:<10} {:<15}".format(*titles))
+        print("-" * 80)
+        for product in self.principal:
+            if category is None or product[5] == category:
+                print("{:<15} {:<30} {:<10} {:<15}".format(product[0], product[1], product[2], product[3]))
+                print("-" * 80)
 
     def Ver_Inventario(self):
         print("-" * 100)
-        titles = ["No.", "Nombre del Producto", "Cantidad", "Precio Q.", "Descripción"]
-        print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+        titles = ["No.", "Nombre del Producto", "Precio Q.", "Descripción", "Cantidad"]
+        print("{:<15} {:<30} {:<10} {:<25} {:<10}".format(*titles))
         print("-" * 100)
         for product in self.principal:
-            print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*product))
+            print("{:<15} {:<30} {:<10} {:<25} {:<10}".format(*product))
             print("-" * 100)
 
     def Cambio_de_Datos(self):
@@ -235,11 +256,158 @@ class Inventory:
                 print("Producto no Encontrado, Asegurese de que el Producto Exista")
                 print("-" * 50)
 
+    def agregar_producto_carrito(self):
+        print("-" * 50)
+        id = int(input("Ingrese Número del Producto que Desea agregar al carrito: "))
+        print("-" * 50)
+
+        found = False  # Variable para rastrear si se encontró el producto
+
+        for x in self.principal:
+            if x[0] == id:
+                found = True
+                position = self.principal.index(x)
+                print("Los datos son:")
+                print("-" * 100)
+                titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                print("-" * 100)
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                print("-" * 100)
+
+                amount = int(input("Ingrese la Cantidad que Desea del Producto: "))
+                if amount <= int(x[2]):
+                    self.principal[position][2] = str(int(x[2]) - amount)
+                    self.car.append((x[0], x[1], amount, x[3] * amount))
+                    print("Producto agregado al carrito correctamente")
+                else:
+                    print("No hay suficiente cantidad disponible del producto")
+                break
+
+        if not found:
+            print("Producto no Encontrado, Asegúrese de que el Producto Exista")
+
+    def Ver_carro(self):
+        print("-" * 100)
+        print("No. de Carrito", "Numero")
+        print("-" * 100)
+        titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q."]
+        print("{:<15} {:<30} {:<10} {:<10}".format(*titles))
+        print("-" * 100)
+        for product in self.car:
+            print("{:<15} {:<30} {:<10} {:<10}".format(*product))
+            print("-" * 100)
+
+    def Eliminar_Producto_del_carrito(self):
+        print("-" * 50)
+        id = int(input("Ingrese Número del Producto que Desea Eliminar: "))
+        print("-" * 50)
+        for x in self.car:
+            if x[0] == id:
+                self.car.remove(x)
+                print("El Producto se Elimino del Inventario con los  Siguientes Datos:")
+                print("-" * 100)
+                titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                print("-" * 100)
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                print("-" * 100)
+                return
+            else:
+                print("Producto No Encontrado, Asegurese de que el Producto Exista")
+                print("-" * 50)
+
+    def sumar_producto_al_carrito(self):
+        print("-" * 50)
+        id = int(input("Ingrese el Número del Producto, para Sumarle Producto a la Cantidad que ya Tenia: "))
+        print("-" * 50)
+        for x in self.car:
+            if x[0] == id:
+                position = self.car.index(x)
+                print("Los Datos son:")
+                print("-" * 100)
+                titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                print("-" * 100)
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                print("-" * 100)
+
+                add = int(input("¿Desea Sumarle Producto a la Cantidad que ya Tenia?\n 1. Si\n 2. No\n"))
+
+                if add == 1:
+                    new = int(input("Ingrese la Cantidad que Desea Sumar: "))
+                    print("-" * 50)
+
+                    variable = int(x[2])
+                    modification = variable + new
+                    self.car[position][2] = str(modification)
+                    print("Datos Actualizados Correctamente")
+                    print("La Cantidad de Producto que Tiene Ahora es:", modification)
+                    break
+
+                if add == 2:
+                    print("Gracias...")
+                    break
+            else:
+                print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                print("-" * 50)
+
+    def restar_producto_al_carrita(self):
+        print("-" * 50)
+        id = int(input("Ingrese el Número del Producto, para Restarle Producto a la Cantidad que ya Tenia: "))
+        print("-" * 50)
+        for x in self.car:
+            if x[0] == id:
+                position = self.car.index(x)
+                print("Los Datos son:")
+                print("-" * 100)
+                titles = ["ID Producto", "Nombre", "Cantidad", "Precio Q.", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*titles))
+                print("-" * 100)
+                print("{:<15} {:<30} {:<10} {:<10} {:<15}".format(*x))
+                print("-" * 100)
+
+                add = int(input("¿Desea Restarle Producto a la Cantidad que ya Tenia?\n 1. Si\n 2. No\n"))
+
+                if add == 1:
+                    new = int(input("Ingrese la Cantidad que Desea Restar: "))
+                    print("-" * 50)
+
+                    variable = int(x[2])
+                    modification = variable - new
+                    self.car[position][2] = str(modification)
+                    print("Datos Actualizados Aorrectamente")
+                    print("La Aantidad de Producto que Tiene Ahora es:", modification)
+                    break
+
+                if add == 2:
+                    print("Gracias...")
+                    break
+            else:
+                print("Producto no Encontrado, Asegurese de que el Producto Exista")
+                print("-" * 50)
+
+    def Impuesto(self):
+        suma = sum(producto[3] for producto in self.car)
+        self.taxes = suma * 0.12
+        print("IMPUESTO (12%): Q.", self.taxes)
+        print("-" * 100)
+
+    def Sub_total(self):
+        self.subtotal = sum(producto[3] for producto in self.car)
+        print("SUBTOTAL: Q.", self.subtotal)
+        print("-" * 100)
+
+    def total(self):
+        self.total = self.subtotal + self.taxes
+        print("TOTAL Q.", self.total)
+        print("-" * 100)
+
 #FUNCIONES
 #Funion Para el Registro de Clientes
 def Registro_Clientes():
     while True:
-        print("\n--------------BIENVENIDO A FASTFOOD---------------")
+        print("\n--------------BIENVENIDOS A FASTFOOD--------------")
         print("\nIngrese sus Datos a Continuacion:")
         names = input("Ingrese sus Nombres: ")
         last_name = input("Ingrese sus Apellidos: ")
@@ -372,7 +540,51 @@ def Administracion_Clientes():
             print("-----------------Intente Nuevamente---------------\n")
 
 #Llamar a las clases
-Administration = Inventory()
+Administration = Inventory_and_Orders()
+
+def Menu_Clientes():
+    print("--------------------------------------------------")
+    print("\n--------------BIENVENIDOS A FASTFOOD--------------")
+    print("--------------------------------------------------")
+    print("\n1-. Ver Menu")
+    print("2-. Ver Carrito")
+    print("3-. Editar Carrito")
+    print("4.- Finalizar Comprar")
+    print("5.- Regresar al Menu Principal")
+    print("6.- Salir del Programa\n")
+    print("-" * 50)
+    option = input("Ingrese el Número de la Opción que Desee: ")
+    print("-" * 50)
+
+    if option == "1":
+        print("--------------------------------------------------")
+        print("\n-------------------MENU FASTFOOD------------------")
+        print("--------------------------------------------------")
+        print("\n1-. Hamburguesas ")
+        print("2-. Pizzas")
+        print("3-. Tacos")
+        print("4-. Postres")
+        print("5-. Bebidas")
+        print("6-. Combos\n")
+        print("-" * 50)
+        option2 = input("Ingrese el Número de la Opción que Desee: ")
+        print("-" * 50)
+
+        if option2 == "1":
+            Administration.Ver_Inventario_Clientes(category="Hamburguesas")
+        elif option2 == "2":
+            Administration.Ver_Inventario_Clientes(category="Pizzas")
+        elif option2 == "3":
+            Administration.Ver_Inventario_Clientes(category="Tacos")
+        elif option2 == "4":
+            Administration.Ver_Inventario_Clientes(category="Postres")
+        elif option2 == "5":
+            Administration.Ver_Inventario_Clientes(category="Bebidas")
+
+    elif option == "2":
+        Administration.Ver_carro()
+
+
 
 predetermined = "FASTFOOD023"
 
@@ -396,6 +608,7 @@ while True:
             while True:
                 print("-" * 50)
                 print("\n--------------------BIENVENID@--------------------")
+                print("--------------------------------------------------")
                 print("\nIngresando Como:", full_name)
                 print("\n1-. Ingresar Producto al Inventario")
                 print("2-. Ver el Inventario")
@@ -435,7 +648,9 @@ while True:
 
     if position == "1":
         while True:
+            print("--------------------------------------------------")
             print("\n--------------------BIENVENID@--------------------")
+            print("--------------------------------------------------")
             print("\n¿Que Desea Hacer?")
             print("1-. Registarme")
             print("2-. Iniciar Sesion")
@@ -448,12 +663,14 @@ while True:
 
             if option == "1":
                 Registro_Clientes()
+                Menu_Clientes()
 
             elif option == "2":
                 Iniciar_Sesion_Cliente()
+                Menu_Clientes()
 
             elif option == "3":
-                print("MODO INVITADO")
+                Menu_Clientes()
 
             elif option == "4":
                 break
