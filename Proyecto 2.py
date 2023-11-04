@@ -7,6 +7,20 @@ class Inventory:
     def __init__(self):
         self.principal = []
 
+        predefined_data = [
+            [1, "Hamburguesa Volcanica", 25, 40, "X"],
+            [2, "Hamburguesa Tejana", 25, 40, "X"],
+            [3, "Hamburguesa Bomba de Queso", 25, 40, "X"],
+            [4, "Pizza de Jamon", 15, 35, "X"],
+            [5, "Pizza de Pepperoni", 15, 35, "X"],
+            [6, "Pizza Hawaina", 15, 35, "X"],
+            [7, "Tacos al Pastor", 30, 21, "3 x 21"],
+            [8, "Tacos de Cochito Horneado", 30, 21, "3 x 21"],
+            [9, "Tacos de Pollo", 30, 21, "3 x 21"],
+            [10, "Hamburguesa Volcanica", 25, 40, "X"]
+        ]
+        self.principal.extend(predefined_data)
+
     def Ingreso_Producto_Inventario(self):
         print("-" * 50)
         account = int(input("¿Cuantos Productos Ingresara?: "))
