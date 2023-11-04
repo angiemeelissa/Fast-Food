@@ -1,6 +1,8 @@
 #LIBRERIAS
 #import time
 
+import time
+
 #DICCIONARIOS
 users_clients = {}
 
@@ -422,3 +424,99 @@ while True:
     else:
         print("Opcion Invalida")
         print("Intente de Nuevo")
+
+#AGREGAR PEDIDOS A LA COLA
+import queue
+
+class Pedido:
+    def __init__(self, plato, cantidad):
+        self.plato = plato
+        self.cantidad = cantidad
+        self.tiempo_creacion = time.time()
+
+cola_pedidos = queue.Queue()
+pedidos_procesados = []
+
+def agregar_pedido():
+    plato = input("Ingrese el nombre del plato o producto: ")
+    cantidad = int(input("Ingrese la cantidad: "))
+    pedido = Pedido(plato, cantidad)
+    cola_pedidos.put(pedido)
+    print(f"Pedido de {cantidad} {plato} agregado a la cola.")
+
+def procesar_pedido():
+    if not cola_pedidos.empty():
+        pedido = cola_pedidos.get()
+        pedido.tiempo_procesado = time.time()
+        pedidos_procesados.append(pedido)
+        print(f"Pedido de {pedido.cantidad} {pedido.plato} procesado.")
+
+def mostrar_pedidos_pendientes():
+    print("Pedidos pendientes:")
+    for pedido in list(cola_pedidos.queue):
+        print(f"{pedido.cantidad} {pedido.plato}")
+
+def calcular_tiempo_promedio_espera():
+    if not pedidos_procesados:
+        print("Aún no se han procesado pedidos.")
+    else:
+        total_tiempo_espera = 0
+        for pedido in pedidos_procesados:
+            total_tiempo_espera += pedido.tiempo_procesado - pedido.tiempo_creacion
+
+        if pedidos_procesados:
+            promedio_tiempo_espera = total_tiempo_espera / len(pedidos_procesados)
+            print(f"Tiempo promedio de espera: {promedio_tiempo_espera:.2f} segundos")
+        else:
+            print("No hay pedidos procesados aún.")
+while True:
+    print("Menú:")
+    print("1. Agregar Pedido")
+    print("2. Procesar Pedido")
+    print("3. Mostrar lista de pedidos pendientes")
+    print("4. Calcular tiempo promedio de espera")
+    print("0. Salir")
+    opcion = input("Seleccione una opción: ")
+
+    if opcion == "1":
+        agregar_pedido()
+    elif opcion == "2":
+        procesar_pedido()
+    elif opcion == "3":
+        mostrar_pedidos_pendientes()
+    elif opcion == "4":
+        calcular_tiempo_promedio_espera()
+    elif opcion == "0":
+        break
+    else:
+        print("Opción no válida")
+
+#DARLE UN NÚMERO A CADA CLIENTE
+
+cola_de_clientes = queue.Queue()
+
+def agregar_clientes(numero):
+    for x in range(numero):
+        cola_de_clientes.put(numero)
+        print("Se ha agregado a la fila el cliente: ", (x + 1))
+
+def atender_clientes():
+    numero = 0
+    while not cola_de_clientes.empty():
+        numero = numero + 1
+        try:
+            cliente = cola_de_clientes.get(block=False)
+            print(f"El Cliente {numero} Fue Atendido")
+        except queue.Empty:
+            print("La cola de clientes está vacía.")
+            break
+
+numero = int(input("Ingrese El Número De Clientes:"))
+
+numero_nuevo = 0
+for x in range(1, numero + 1):
+    numero_nuevo = numero_nuevo + 1
+
+agregar_clientes(numero_nuevo)
+print("")
+atender_clientes()
