@@ -278,12 +278,12 @@ class Inventory_and_Orders:
                 print("{:<15} {:<30} {:<10} {:<15}".format(*x))
                 print("-" * 80)
 
-                price = x[2]  # Almacena el precio unitario antes de restar la cantidad
+                price = x[2]
                 amount = int(input("Ingrese la Cantidad que Desea del Producto: "))
-                if amount <= int(x[4]):  # Verifica si la cantidad disponible es suficiente
-                    self.principal[position][4] = str(int(x[4]) - amount)  # Resta la cantidad adquirida
-                    total_price = price * amount  # Calcula el precio total
-                    self.car.append((x[0], x[1], price, amount, total_price, x[3]))  # Almacena los datos en el carrito
+                if amount <= int(x[4]):
+                    self.principal[position][4] = str(int(x[4]) - amount)
+                    total_price = price * amount
+                    self.car.append((x[0], x[1], price, amount, total_price, x[3]))
                     print("Producto agregado al carrito correctamente")
                 else:
                     print("No hay suficiente cantidad disponible del producto")
@@ -294,8 +294,6 @@ class Inventory_and_Orders:
 
     def Ver_carro(self):
         if self.car:
-            print("-" * 115)
-            print(f"No. de Carrito: {self.ticket}")
             print("-" * 115)
             titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
             print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
@@ -309,17 +307,17 @@ class Inventory_and_Orders:
         if self.car:
             print("-" * 50)
             id = int(input("Ingrese Número del Producto que Desea Eliminar: "))
-            print("-" * 50)
+            print("-" * 115)
             for x in self.car:
                 if x[0] == id:
                     self.car.remove(x)
                     print("El Producto se Elimino del Inventario con los  Siguientes Datos:")
-                    print("-" * 80)
-                    titles = ["No.", "Nombre del Producto", "Precio Q.", "Descripción"]
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*titles))
-                    print("-" * 80)
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*x))
-                    print("-" * 80)
+                    print("-" * 115)
+                    titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
+                    print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
+                    print("-" * 115)
+                    print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*x))
+                    print("-" * 115)
                     return
                 else:
                     print("Producto No Encontrado, Asegurese de que el Producto Exista")
@@ -330,112 +328,50 @@ class Inventory_and_Orders:
 
     def sumar_producto_al_carrito(self):
         if self.car:
-            print("-" * 50)
-            id = int(input("Ingrese el Número del Producto, para Sumarle Producto a la Cantidad que ya Tenia: "))
-            print("-" * 50)
-            for x in self.car:
-                if x[0] == id:
-                    position = self.car.index(x)
-                    print("Los Datos son:")
-                    print("-" * 80)
-                    titles = ["No.", "Nombre del Producto", "Precio Q.", "Descripción"]
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*titles))
-                    print("-" * 80)
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*x))
-                    print("-" * 80)
-
-                    add = int(input("¿Desea Sumarle Producto a la Cantidad que ya Tenia?\n 1. Si\n 2. No\n"))
-
-                    if add == 1:
-                        new = int(input("Ingrese la Cantidad que Desea Sumar: "))
-                        print("-" * 50)
-
-                        variable = int(x[2])
-                        modification = variable + new
-                        self.car[position][2] = str(modification)
-                        print("Datos Actualizados Correctamente")
-                        print("La Cantidad de Producto que Tiene Ahora es:", modification)
-                        break
-
-                    if add == 2:
-                        print("Gracias...")
-                        break
-                else:
-                    print("Producto no Encontrado, Asegurese de que el Producto Exista")
-                    print("-" * 50)
-
-        else:
-            print("Asegurese de que Haya Producto en el Carro")
-
-    def restar_producto_al_carrita(self):
-        if self.car:
-            print("-" * 50)
-            id = int(input("Ingrese el Número del Producto, para Restarle Producto a la Cantidad que ya Tenia: "))
-            print("-" * 50)
-            for x in self.car:
-                if x[0] == id:
-                    position = self.car.index(x)
-                    print("Los Datos son:")
-                    print("-" * 80)
-                    titles = ["No.", "Nombre del Producto", "Precio Q.", "Descripción"]
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*titles))
-                    print("-" * 80)
-                    print("{:<15} {:<30} {:<10} {:<15}".format(*x))
-                    print("-" * 80)
-
-                    add = int(input("¿Desea Restarle Producto a la Cantidad que ya Tenia?\n 1. Si\n 2. No\n"))
-
-                    if add == 1:
-                        new = int(input("Ingrese la Cantidad que Desea Restar: "))
-                        print("-" * 50)
-
-                        variable = int(x[2])
-                        modification = variable - new
-                        self.car[position][2] = str(modification)
-                        print("Datos Actualizados Aorrectamente")
-                        print("La Cantidad de Producto que Tiene Ahora es:", modification)
-                        break
-
-                    if add == 2:
-                        print("Gracias...")
-                        break
-                else:
-                    print("Producto no Encontrado, Asegurese de que el Producto Exista")
-                    print("-" * 50)
-
-        else:
-            print("Asegurese de que Haya Producto en el Carro")
+            print("-" * 80)
+            id = int(input("Ingrese el Número del Producto, al que le Desea Cambiar la Cantidad: "))
+            print("-" * 80)
+            for i, product in enumerate(self.car):
+                if product[0] == id:
+                    new = int(input("Ingrese la Nueva Cantidad: "))
+                    product_no, product_name, price, old_total, old_quantity, description = product
+                    new_total = price * new
+                    self.car[i] = (product_no, product_name, price, new, new_total, description)
+                    print(f"Cantidad del producto: {product_name}, actualizada a: {new}")
+                    return
+            print("Producto no encontrado en el carrito")
 
     def Impuesto(self):
         if self.car:
-            suma = sum(producto[2] for producto in self.car)
-            self.taxes = suma * 0.12
+            iva_rate = 0.12
+            self.taxes = self.subtotal * iva_rate
             print("IMPUESTO (12%): Q.", self.taxes)
-            print("-" * 80)
+            print("-" * 115)
         else:
             print("Asegurese de que Haya Producto en el Carro")
 
     def Iord(self):
         if self.car:
-            print("-" * 80)
-            print("--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
-            print("-" * 80)
-            print("---------------------FACTURA----------------------")
-            print("-" * 80)
-            self.ticket += 1
+            print("-" * 115)
+            print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
+            print("-" * 115)
+            print("--------------------------------------------------------FACTURA----------------------------------------------------")
+            print("-" * 115)
             print("No. de Orden", self.ticket)
 
-    def Sub_total(self):
+    def Sub_total_carrito(self):
         if self.car:
             self.subtotal = sum(product[4] for product in self.car)
             print("SUBTOTAL: Q.", self.subtotal)
-            print("-" * 80)
+            print("-" * 115)
 
     def calcular_total(self):
         if self.car:
             self.total = self.subtotal + self.taxes
             print("TOTAL Q.", self.total)
-            print("-" * 80)
+            print("-" * 115)
+            print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
+            print("-" * 115)
 
     def atender_clientes(self):
         while not self.line.empty():
@@ -448,7 +384,7 @@ class Inventory_and_Orders:
                 print("\rTiempo Restante: {} segundos".format(tiempo_restante), end='')
                 time.sleep(1)
 
-            print("Entregando Pedido al Cliente No. {}".format(cliente))
+            print("\nEntregando Pedido al Cliente No. {}".format(cliente))
 
             time_eight = 8
             for tiempo_restante in range(time_eight, -1, -1):
@@ -466,6 +402,9 @@ class Inventory_and_Orders:
             print("")
             print("-" * 50)
             print(f"Tu número de ticket es: {self.ticket}")
+
+    def suma_ticket(self):
+        self.ticket += 1
 
 #FUNCIONES
 #Funion Para el Registro de Clientes
@@ -607,6 +546,7 @@ def Administracion_Clientes():
 Administration = Inventory_and_Orders()
 
 def Menu_Clientes():
+
     while True:
         print("--------------------------------------------------")
         print("--------------BIENVENIDOS A FASTFOOD--------------")
@@ -663,8 +603,7 @@ def Menu_Clientes():
                 print("\n--------------BIENVENIDOS A FASTFOOD--------------")
                 print("--------------------------------------------------")
                 print("\n1-. Eliminar Producto")
-                print("2-. Sumar Producto")
-                print("3-. Restar Producto\n")
+                print("2-. Cambiar Cantidad del Producto\n")
                 print("-" * 50)
                 option3 = input("Ingrese el Número de la Opción que Desee: ")
                 print("-" * 50)
@@ -675,16 +614,16 @@ def Menu_Clientes():
                 elif option3 == "2":
                     Administration.sumar_producto_al_carrito()
 
-                elif option3 == "3":
-                    Administration.restar_producto_al_carrita()
 
                 else:
                     print("\n------------------Opcion Invalida-----------------")
                     print("-----------------Intente Nuevamente---------------\n")
 
         elif option == "5":
+            Administration.suma_ticket()
             Administration.Iord()
             Administration.Ver_carro()
+            Administration.Sub_total_carrito()
             Administration.Impuesto()
             Administration.calcular_total()
             Administration.take_ticket()
