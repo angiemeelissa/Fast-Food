@@ -6,7 +6,7 @@ import time
 users_clients = {}
 
 #CLASES
-#Clase para la Administracion del Inventario
+#Clase Para La Administracion del Inventario
 class Inventory_and_Orders:
     def __init__(self):
         self.principal = [[1, "Hamburguesa Volcanica", 40, "Tocino y Queso", 25, "Hamburguesas"],
@@ -264,7 +264,7 @@ class Inventory_and_Orders:
         id = int(input("Ingrese Número del Producto que Desea agregar al carrito: "))
         print("-" * 50)
 
-        found = False  # Variable para rastrear si se encontró el producto
+        found = False
 
         for x in self.principal:
             if x[0] == id:
@@ -339,7 +339,7 @@ class Inventory_and_Orders:
                     self.car[i] = (product_no, product_name, price, new, new_total, description)
                     print(f"Cantidad del producto: {product_name}, actualizada a: {new}")
                     return
-            print("Producto no encontrado en el carrito")
+            print("Producto no Encontrado en el Carrito")
 
     def Impuesto(self):
         if self.car:
@@ -373,6 +373,38 @@ class Inventory_and_Orders:
             print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
             print("-" * 115)
 
+    def Pago(self):
+        while True:
+            print("\n------------------Metodo de Pago------------------")
+            print("\n¿Como Desea Pagar?")
+            print("\n1-. Efectivo")
+            print("2-. Tarjeta\n")
+            print("-" * 50)
+            opcion_pago = input("Ingrese el Número de la Opción que Desee: ")
+            print("-" * 50)
+
+            if opcion_pago == "1":
+                efectivo = float(input("\nIngrese la Cantidad con la que Pagara (Q.): "))
+                if efectivo >= self.total:
+                    cambio = efectivo - self.total
+                    print("\n-------------------Pago Exitoso-------------------")
+                    print(f"Su cambio es Q. {cambio:.2f}")
+                    break
+                else:
+                    print("\n----------------------ERROR!----------------------")
+                    print("------La Cantidad Ingresada es Insuficiente-------")
+
+            elif opcion_pago == "2":
+                print("--------- Acerque la Tarjeta al Lector... --------")
+                time.sleep(5)
+                print("-----------------Tarjeta Aprobada-----------------")
+                print("---------------Gracias por su Compra--------------")
+                break
+
+            else:
+                print("\n----------------------ERROR!----------------------")
+                print("-----------------Intente Nuevamente---------------\n")
+
     def atender_clientes(self):
         while not self.line.empty():
             cliente = self.line.get()
@@ -405,6 +437,9 @@ class Inventory_and_Orders:
 
     def suma_ticket(self):
         self.ticket += 1
+
+#Llamar a las Clases
+Administration = Inventory_and_Orders()
 
 #FUNCIONES
 #Funion Para el Registro de Clientes
@@ -542,17 +577,14 @@ def Administracion_Clientes():
             print("\n------------------Opcion Invalida-----------------")
             print("-----------------Intente Nuevamente---------------\n")
 
-#Llamar a las clases
-Administration = Inventory_and_Orders()
-
+#Funcion Para El Menu de Clientes
 def Menu_Clientes():
-
     while True:
         print("--------------------------------------------------")
         print("--------------BIENVENIDOS A FASTFOOD--------------")
         print("--------------------------------------------------")
         print("\n1-. Ver Menu")
-        print("2-. Hacer Compra")
+        print("2-. Agregar Producto al Carrito")
         print("3-. Ver Carrito")
         print("4-. Editar Carrito")
         print("5.- Finalizar Comprar")
@@ -614,7 +646,6 @@ def Menu_Clientes():
                 elif option3 == "2":
                     Administration.sumar_producto_al_carrito()
 
-
                 else:
                     print("\n------------------Opcion Invalida-----------------")
                     print("-----------------Intente Nuevamente---------------\n")
@@ -626,22 +657,27 @@ def Menu_Clientes():
             Administration.Sub_total_carrito()
             Administration.Impuesto()
             Administration.calcular_total()
+            Administration.Pago()
             Administration.take_ticket()
             print("-" * 50)
             Administration.atender_clientes()
+            print("\n--------------Gracias Por Tu Compra---------------")
+            print("-----------Esperamos que Vuelvas Pronto!----------\n")
+            break
 
         elif option == "6":
-            print("Regresando...")
+            print("\n------------------ Regresando... -----------------")
             break
 
         elif option == "7":
-            print("Gracias Por Utilizar Nuestro Programa")
+            print("\n-----------Esperamos que Vuelvas Pronto!----------")
             exit()
 
         else:
             print("\n------------------Opcion Invalida-----------------")
             print("-----------------Intente Nuevamente---------------\n")
 
+#Contraseña Administrativa PREDETERMINADA
 predetermined = "FASTFOOD023"
 
 while True:
@@ -691,11 +727,11 @@ while True:
                     Administracion_Clientes()
 
                 elif option == "6":
-                    print("Regresando...")
+                    print("\n------------------ Regresando... -----------------")
                     break
 
                 elif option == "7":
-                    print("Esperamos que Vuelvas Pronto!")
+                    print("\n-----------Esperamos que Vuelvas Pronto!----------")
                     exit()
 
                 else:
@@ -719,7 +755,6 @@ while True:
 
             if option == "1":
                 Registro_Clientes()
-                Menu_Clientes()
 
             elif option == "2":
                 Iniciar_Sesion_Cliente()
@@ -729,11 +764,11 @@ while True:
                 Menu_Clientes()
 
             elif option == "4":
-                print("Regresando...")
+                print("\n------------------ Regresando... -----------------")
                 break
 
             elif option == "5":
-                print("Gracias Por Utilizar Nuestro Programa")
+                print("\n-----------Esperamos que Vuelvas Pronto!----------")
                 exit()
 
             else:
@@ -741,7 +776,7 @@ while True:
                 print("-----------------Intente Nuevamente---------------\n")
 
     elif position == "2":
-        print("Esperamos que Vuelvas Pronto!")
+        print("\n-----------Esperamos que Vuelvas Pronto!----------")
         exit()
 
     else:
