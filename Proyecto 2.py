@@ -489,6 +489,7 @@ def Iniciar_Sesion_Cliente():
         usuario = users_clients[username]
         if usuario["contraseña"] == password:
             print("\nIniciando Sesión como Cliente:", usuario["nombres"], usuario["apellidos"])
+            Menu_Clientes()
         else:
             print("\n----------------------ERROR!----------------------")
             print("----Nombre de Usuario o Contraseña Incorrectos----")
@@ -761,7 +762,6 @@ while True:
 
             elif option == "2":
                 Iniciar_Sesion_Cliente()
-                Menu_Clientes()
 
             elif option == "3":
                 Menu_Clientes()
