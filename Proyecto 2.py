@@ -45,7 +45,7 @@ class Inventory_and_Orders:
             price = int(input("Ingrese el Precio del Producto: "))
             description = input("Ingrese la Descripción del Producto: ")
             stock = input("Ingrese la Cantidad Exacta que Tiene del Producto: ")
-            categoria = input("Ingrese la categoria del producto: ")
+            categoria = input("Ingrese la categoria del producto (Hamburguesas, Pizza, Tacos, Postres, Bebidas o Combos: ")
 
             print("-" * 50)
             products.append(idProduct)
@@ -396,8 +396,11 @@ class Inventory_and_Orders:
 
             elif opcion_pago == "2":
                 print("--------- Acerque la Tarjeta al Lector... --------")
-                time.sleep(5)
-                print("-----------------Tarjeta Aprobada-----------------")
+                time_eight = 5
+                for tiempo_restante in range(time_eight, -1, -1):
+                    print("\rTiempo Restante: {} segundos".format(tiempo_restante), end='')
+                    time.sleep(1)
+                print("\n-----------------Tarjeta Aprobada-----------------")
                 print("---------------Gracias por su Compra--------------")
                 break
 
