@@ -403,13 +403,13 @@ class Inventory_and_Orders:
 
     def Ver_facturas(self):
         if self.facturas:
+            print("")
+            print("")
             print("-------------------------------------------------REALIZAR PEDIDOS--------------------------------------------------")
             print("")
             print("")
+            print("")
             for i, factura in enumerate(self.facturas):
-                print("")
-                print("")
-                print("")
                 print("-" * 115)
                 print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
                 print("-" * 115)
@@ -431,6 +431,9 @@ class Inventory_and_Orders:
                 print("-" * 115)
                 print(f"TOTAL Q. {factura['Total']}")
                 print("-" * 115)
+                print("")
+                print("")
+                print("")
 
         else:
             print("No hay Facturas disponibles")
