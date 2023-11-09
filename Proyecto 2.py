@@ -403,6 +403,9 @@ class Inventory_and_Orders:
 
     def Ver_facturas(self):
         if self.facturas:
+            print("-------------------------------------------------REALIZAR PEDIDOS--------------------------------------------------")
+            print("")
+            print("")
             for i, factura in enumerate(self.facturas):
                 print("")
                 print("")
