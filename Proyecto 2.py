@@ -26,11 +26,16 @@ class Inventory_and_Orders:
             [15, "Agua Pura", 5, "Agua Pura", 15, "Bebidas"]]
 
         self.car = []
+        self.administrator = []
         self.subtotal = 0
         self.taxes = 0
         self.total = 0
         self.ticket = 0
         self.line = queue.Queue()
+        self.ganancias = 0
+        self.iva = 0
+        self.dinero = 0
+        self.facturas = []
 
     def Ingreso_Producto_Inventario(self):
         print("-" * 50)
@@ -284,6 +289,7 @@ class Inventory_and_Orders:
                     self.principal[position][4] = str(int(x[4]) - amount)
                     total_price = price * amount
                     self.car.append((x[0], x[1], price, amount, total_price, x[3]))
+                    self.administrator.append((x[0], x[1], price, amount, total_price, x[3]))
                     print("Producto agregado al carrito correctamente")
                 else:
                     print("No hay suficiente cantidad disponible del producto")
@@ -302,6 +308,19 @@ class Inventory_and_Orders:
                 product_no, product_name, price, quantity_adquired, total_price, description = product
                 print(f"{product_no:<15} {product_name:<30} {price:<10} {quantity_adquired:<20} {total_price:<10} {description:<15}")
                 print("-" * 115)
+
+    def ver_ventas_del_dia(self):
+        if self.administrator:
+            print("-" * 115)
+            titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
+            print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
+            print("-" * 115)
+            for product in self.administrator:
+                product_no, product_name, price, quantity_adquired, total_price, description = product
+                print(f"{product_no:<15} {product_name:<30} {price:<10} {quantity_adquired:<20} {total_price:<10} {description:<15}")
+                print("-" * 115)
+        else:
+            print("No se Han Hecho Ventas Durante el Día")
 
     def Eliminar_Producto_del_carrito(self):
         if self.car:
@@ -359,11 +378,75 @@ class Inventory_and_Orders:
             print("-" * 115)
             print("No. de Orden", self.ticket)
 
+            subtotal = 0
+            taxes = 0
+            total = 0
+
+            car_copy = self.car.copy()
+
+            factura = {"No. de Orden": self.ticket,
+                "Productos": car_copy,
+                "Subtotal": subtotal,
+                "Impuesto (12%)": taxes,
+                "Total": total}
+
+            for product in car_copy:
+                subtotal += product[4]
+            taxes = subtotal * 0.12
+            total = subtotal + taxes
+
+            factura["Subtotal"] = subtotal
+            factura["Impuesto (12%)"] = taxes
+            factura["Total"] = total
+
+            self.facturas.append(factura)
+
+    def Ver_facturas(self):
+        for i, factura in enumerate(self.facturas):
+            print("")
+            print("")
+            print("")
+            print("-" * 115)
+            print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
+            print("-" * 115)
+            print("--------------------------------------------------------FACTURA----------------------------------------------------")
+            print("-" * 115)
+            print("No. de Orden", factura["No. de Orden"])
+            print("-" * 115)
+            titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
+            print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
+            print("-" * 115)
+            for product in factura["Productos"]:
+                product_no, product_name, price, quantity_adquired, total_price, description = product
+                print(
+                    f"{product_no:<15} {product_name:<30} {price:<10} {quantity_adquired:<20} {total_price:<10} {description:<15}")
+                print("-" * 115)
+            print(f"SUBTOTAL: Q. {factura['Subtotal']}")
+            print("-" * 115)
+            print(f"IMPUESTO (12%): Q. {factura['Impuesto (12%)']}")
+            print("-" * 115)
+            print(f"TOTAL Q. {factura['Total']}")
+            print("-" * 115)
+
     def Sub_total_carrito(self):
         if self.car:
             self.subtotal = sum(product[4] for product in self.car)
             print("SUBTOTAL: Q.", self.subtotal)
             print("-" * 115)
+
+    def total_ventas_dia(self):
+        if self.administrator:
+            self.ganancias = sum(product[4] for product in self.administrator)
+            iva_rate = 0.13
+            self.iva = self.ganancias * iva_rate
+            print("SUBTOTAL: Q.", self.ganancias)
+            print("-" * 115)
+            print("IMPUESTO (12%): Q.", self.iva)
+            self.dinero = self.ganancias + self.iva
+            print("-" * 115)
+            print("TOTAL Q.", self.dinero)
+            print("-" * 115)
+
 
     def calcular_total(self):
         if self.car:
@@ -489,6 +572,7 @@ def Iniciar_Sesion_Cliente():
         usuario = users_clients[username]
         if usuario["contraseña"] == password:
             print("\nIniciando Sesión como Cliente:", usuario["nombres"], usuario["apellidos"])
+            Menu_Clientes()
         else:
             print("\n----------------------ERROR!----------------------")
             print("----Nombre de Usuario o Contraseña Incorrectos----")
@@ -701,16 +785,18 @@ while True:
             full_name = input("Ingrese su Nombre Completo: ")
             while True:
                 print("-" * 50)
-                print("\n--------------------BIENVENID@--------------------")
+                print("--------------------BIENVENID@--------------------")
                 print("--------------------------------------------------")
                 print("\nIngresando Como:", full_name)
                 print("\n1-. Ingresar Producto al Inventario")
                 print("2-. Ver el Inventario")
                 print("3-. Cambiar algún Dato de un Producto")
                 print("4-. Eliminar Producto del Inventario")
-                print("5-. Administracion de Clientes")
-                print("6-. Regresar al Menú Principal")
-                print("7-. Salir del Programa\n")
+                print("5-. Realizar Pedidos")
+                print("6-. Administracion de Clientes")
+                print("7-. Ventas del Día")
+                print("8-. Regresar al Menú Principal")
+                print("9-. Salir del Programa\n")
                 print("-" * 50)
                 option = input("Ingrese el Número de la Opción que Desee: ")
                 print("-" * 50)
@@ -727,13 +813,20 @@ while True:
                     Administration.Eliminar_Producto()
 
                 elif option == "5":
-                    Administracion_Clientes()
+                    Administration.Ver_facturas()
 
                 elif option == "6":
+                    Administracion_Clientes()
+
+                elif option == "7":
+                    Administration.ver_ventas_del_dia()
+                    Administration.total_ventas_dia()
+
+                elif option == "8":
                     print("\n------------------ Regresando... -----------------")
                     break
 
-                elif option == "7":
+                elif option == "9":
                     print("\n-----------Esperamos que Vuelvas Pronto!----------")
                     exit()
 
@@ -761,7 +854,6 @@ while True:
 
             elif option == "2":
                 Iniciar_Sesion_Cliente()
-                Menu_Clientes()
 
             elif option == "3":
                 Menu_Clientes()
@@ -784,4 +876,4 @@ while True:
 
     else:
         print("\n----------------------ERROR!----------------------")
-        print("---------------Contraseña Incorrecta--------------")    
+        print("---------------Contraseña Incorrecta--------------")
