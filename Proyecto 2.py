@@ -402,31 +402,35 @@ class Inventory_and_Orders:
             self.facturas.append(factura)
 
     def Ver_facturas(self):
-        for i, factura in enumerate(self.facturas):
-            print("")
-            print("")
-            print("")
-            print("-" * 115)
-            print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
-            print("-" * 115)
-            print("--------------------------------------------------------FACTURA----------------------------------------------------")
-            print("-" * 115)
-            print("No. de Orden", factura["No. de Orden"])
-            print("-" * 115)
-            titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
-            print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
-            print("-" * 115)
-            for product in factura["Productos"]:
-                product_no, product_name, price, quantity_adquired, total_price, description = product
-                print(
-                    f"{product_no:<15} {product_name:<30} {price:<10} {quantity_adquired:<20} {total_price:<10} {description:<15}")
+        if self.facturas:
+            for i, factura in enumerate(self.facturas):
+                print("")
+                print("")
+                print("")
                 print("-" * 115)
-            print(f"SUBTOTAL: Q. {factura['Subtotal']}")
-            print("-" * 115)
-            print(f"IMPUESTO (12%): Q. {factura['Impuesto (12%)']}")
-            print("-" * 115)
-            print(f"TOTAL Q. {factura['Total']}")
-            print("-" * 115)
+                print("---PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--PEDIDO--")
+                print("-" * 115)
+                print("--------------------------------------------------------FACTURA----------------------------------------------------")
+                print("-" * 115)
+                print("No. de Orden", factura["No. de Orden"])
+                print("-" * 115)
+                titles = ["No.", "Nombre del Producto", "Precio Q.", "Cantidad adquirida", "Total", "Descripción"]
+                print("{:<15} {:<30} {:<10} {:<20} {:<10} {:<15}".format(*titles))
+                print("-" * 115)
+                for product in factura["Productos"]:
+                    product_no, product_name, price, quantity_adquired, total_price, description = product
+                    print(
+                        f"{product_no:<15} {product_name:<30} {price:<10} {quantity_adquired:<20} {total_price:<10} {description:<15}")
+                    print("-" * 115)
+                print(f"SUBTOTAL: Q. {factura['Subtotal']}")
+                print("-" * 115)
+                print(f"IMPUESTO (12%): Q. {factura['Impuesto (12%)']}")
+                print("-" * 115)
+                print(f"TOTAL Q. {factura['Total']}")
+                print("-" * 115)
+
+        else:
+            print("No hay Facturas disponibles")
 
     def Sub_total_carrito(self):
         if self.car:
