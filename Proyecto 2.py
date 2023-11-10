@@ -9,21 +9,21 @@ users_clients = {}
 #Clase Para La Administracion del Inventario
 class Inventory_and_Orders:
     def __init__(self):
-        self.principal = [[1, "Hamburguesa Volcanica", 40, "Tocino y Queso", 25, "Hamburguesas"],
-            [2, "Hamburguesa Tejana", 40, "BBQ", 25, "Hamburguesas"],
-            [3, "Hamburguesa Bomba de Queso", 40, "3 Quesos Fundidos", 25, "Hamburguesas"],
-            [4, "Pizza de Jamon", 35, "Jamon y Queso",25, "Pizzas"],
-            [5, "Pizza de Pepperoni", 35 , "Pepperoni y Queso", 25, "Pizzas"],
-            [6, "Pizza Hawaina", 35 , "Jamon, Queso y Piña", 25, "Pizzas"],
-            [7, "Tacos al Pastor", 21, "3 x 21", 30, "Tacos"],
+        self.principal = [[1, "Hamburguesa Volcanica", 40.00, "Tocino y Queso", 25, "Hamburguesas"],
+            [2, "Hamburguesa Tejana", 40.00, "BBQ", 25, "Hamburguesas"],
+            [3, "Hamburguesa Bomba de Queso", 40.00, "3 Quesos Fundidos", 25, "Hamburguesas"],
+            [4, "Pizza de Jamon", 35.00, "Jamon y Queso",25, "Pizzas"],
+            [5, "Pizza de Pepperoni", 35.00 , "Pepperoni y Queso", 25, "Pizzas"],
+            [6, "Pizza Hawaina", 35.00 , "Jamon, Queso y Piña", 25, "Pizzas"],
+            [7, "Tacos al Pastor", 21.00, "3 x 21", 30, "Tacos"],
             [8, "Tacos de Cochito Horneado", 21, "3 x 21", 30, "Tacos"],
-            [9, "Tacos de Pollo", 21, "3 x 21", 30, "Tacos"],
-            [10, "Pie de Queso", 25, "Torta de Queso",15, "Postres"],
-            [11, "Pie de Calabaza", 25, "Pastel de Temporada",10, "Postres"],
-            [12, "Pie de Manzana", 25, "Torta de Manzana",15, "Postres"],
-            [13, "Gaseosas", 10, "Todos los Sabores", 45, "Bebidas"],
-            [14, "Jugo Natural", 15, "Limonada y Naranjada", 30, "Bebidas"],
-            [15, "Agua Pura", 5, "Agua Pura", 15, "Bebidas"]]
+            [9, "Tacos de Pollo", 21.00, "3 x 21", 30, "Tacos"],
+            [10, "Pie de Queso", 25.00, "Torta de Queso",15, "Postres"],
+            [11, "Pie de Calabaza", 25.00, "Pastel de Temporada",10, "Postres"],
+            [12, "Pie de Manzana", 25.00, "Torta de Manzana",15, "Postres"],
+            [13, "Gaseosas", 10.00, "Todos los Sabores", 45, "Bebidas"],
+            [14, "Jugo Natural", 15.00, "Limonada y Naranjada", 30, "Bebidas"],
+            [15, "Agua Pura", 5.00, "Agua Pura", 15, "Bebidas"]]
 
         self.car = []
         self.administrator = []
@@ -50,7 +50,7 @@ class Inventory_and_Orders:
             price = int(input("Ingrese el Precio del Producto: "))
             description = input("Ingrese la Descripción del Producto: ")
             stock = input("Ingrese la Cantidad Exacta que Tiene del Producto: ")
-            categoria = input("Ingrese la categoria del producto (Hamburguesas, Pizza, Tacos, Postres, Bebidas o Combos: ")
+            categoria = input("Ingrese la categoria del producto (Hamburguesas, Pizzas, Tacos, Postres, Bebidas o Combos: ")
 
             print("-" * 50)
             products.append(idProduct)
