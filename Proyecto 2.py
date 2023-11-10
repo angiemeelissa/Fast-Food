@@ -538,39 +538,79 @@ class Inventory_and_Orders:
 Administration = Inventory_and_Orders()
 
 #FUNCIONES
+#VALIDACIONES
+def Validar_Nombres(nombres):
+    if not nombres.isalpha():
+        raise ValueError ("\n----------------------ERROR!----------------------"
+                          "\nLos Nombres NO Deben Contener Caracteres Especiales")
+
+def Validar_Apellidos(apellidos):
+    if not apellidos.isalpha():
+        raise ValueError ("\n----------------------ERROR!----------------------"
+                          "\nLos Appellidos NO Deben Contener Caracteres Especiales")
+
+def Validar_Fecha_Nacimiento(fecha):
+    partes = fecha.split('/')
+    if len(partes) != 3 or not all(part.isdigit() for part in partes):
+        raise ValueError ("\n----------------------ERROR!----------------------"
+                          "\n--Formato Incorrecto Para la Fecha de Nacimiento--")
+
+def Validar_Correo_Electronico(correo):
+    if correo.count('@') != 1:
+        raise ValueError ("\n----------------------ERROR!----------------------"
+                          "\n-----Direccion de Correo Electronica NO Valida----")
+
+
+def Validar_Numero_Telefonico(telefono):
+    if not telefono.isdigit() or len(telefono) != 8:
+        raise ValueError ("\n----------------------ERROR!----------------------"
+                          "\n---Formato Incorrecto para el Número Telefonico---")
+
 #Funion Para el Registro de Clientes
 def Registro_Clientes():
     while True:
         print("\n--------------BIENVENIDOS A FASTFOOD--------------")
         print("\nIngrese sus Datos a Continuacion:")
-        names = input("Ingrese sus Nombres: ")
-        last_name = input("Ingrese sus Apellidos: ")
-        birth_date = input("Ingrese su Fecha de Nacimiento (DD/MM/AA): ")
-        email = input("Ingrese su Correo Electronico: ")
-        phone = input("Ingrese su Número Telefonico: ")
-        username = input("\nIngrese un Nombre de Usuario Unico: ")
+        try:
+            names = input("Ingrese sus Nombres: ")
+            Validar_Nombres(names)
 
-        if username in users_clients:
-            print("\nERROR!\nEl Nombre de Usuario ya Existe, Elija otro")
-            continue
+            last_name = input("Ingrese sus Apellidos: ")
+            Validar_Apellidos(last_name)
 
-        password = input("Elige una Contraseña: ")
-        confirmation = input("Confirma tu Contraseña: ")
+            birth_date = input("Ingrese su Fecha de Nacimiento (DD/MM/AA): ")
+            Validar_Fecha_Nacimiento(birth_date)
 
-        if password != confirmation:
-            print("\nERROR!\nLas Contraseñas no Coinciden. Intente de Nuevo")
-            continue
+            email = input("Ingrese su Correo Electronico: ")
+            Validar_Correo_Electronico(email)
 
-        users_clients[username] = {
-            "nombres": names,
-            "apellidos": last_name,
-            "fecha_nacimiento": birth_date,
-            "email": email,
-            "no_telefonico": phone,
-            "contraseña": password
-        }
-        print("\n----------Registro Exitoso como Cliente!----------")
-        break
+            phone = input("Ingrese su Número Telefonico: ")
+            Validar_Numero_Telefonico(phone)
+
+            username = input("\nIngrese un Nombre de Usuario Unico: ")
+            if username in users_clients:
+                print("\nERROR!\nEl Nombre de Usuario ya Existe, Elija otro")
+                continue
+
+            password = input("Elige una Contraseña: ")
+            confirmation = input("Confirma tu Contraseña: ")
+
+            if password != confirmation:
+                print("\nERROR!\nLas Contraseñas no Coinciden. Intente de Nuevo")
+                continue
+
+            users_clients[username] = {
+                "nombres": names,
+                "apellidos": last_name,
+                "fecha_nacimiento": birth_date,
+                "email": email,
+                "no_telefonico": phone,
+                "contraseña": password
+            }
+            print("\n----------Registro Exitoso como Cliente!----------")
+            break
+        except ValueError as ve:
+            print(f"Error: {ve}")
 
 #Funcion Para el Inicio de Sesion de Clientes
 def Iniciar_Sesion_Cliente():
@@ -631,6 +671,10 @@ def Administracion_Clientes():
                     option2 = input("Confirmar Mensaje (S/N): ")
 
                     if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
+                        time_eight = 5
+                        for tiempo_restante in range(time_eight, -1, -1):
+                            print("\rTiempo Restante: {} segundos".format(tiempo_restante), end='')
+                            time.sleep(1)
                         print("\nTodos Los Mensajes han Sido Enviados con Exito")
 
                     elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
@@ -651,6 +695,10 @@ def Administracion_Clientes():
                     option2 = input("Confirmar Correo (S/N): ")
 
                     if option2.lower() == "s" or option2.upper() == "S" or option2.lower() == "si" or option2.upper() == "SI":
+                        time_eight = 5
+                        for tiempo_restante in range(time_eight, -1, -1):
+                            print("\rTiempo Restante: {} segundos".format(tiempo_restante), end='')
+                            time.sleep(1)
                         print("\nTodos los Correos Electronicos se han Enviado con Exito")
 
                     elif option2.lower() == "n" or option2.upper() == "N" or option2.lower() == "no" or option2.upper() == "NO":
@@ -844,6 +892,10 @@ while True:
                     print("\n------------------Opcion Invalida-----------------")
                     print("-----------------Intente Nuevamente---------------\n")
 
+        else:
+            print("\n----------------------ERROR!----------------------")
+            print("---------------Contraseña Incorrecta--------------")
+
     if position == "1":
         while True:
             print("--------------------------------------------------")
@@ -885,5 +937,5 @@ while True:
         exit()
 
     else:
-        print("\n----------------------ERROR!----------------------")
-        print("---------------Contraseña Incorrecta--------------")
+        print("\n------------------Opcion Invalida-----------------")
+        print("-----------------Intente Nuevamente---------------\n")
